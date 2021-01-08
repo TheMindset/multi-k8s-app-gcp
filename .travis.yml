@@ -6,7 +6,7 @@ before_install:
   # See video 283 - Encrypt service-account.json and send it to travis account using travis CLI
   - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d
   # Download and install Google SDK
-  - curl https://cloud.google.com | bash > /dev/null;
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
   # Install kubectl
   - gcloud components update kubetcl
