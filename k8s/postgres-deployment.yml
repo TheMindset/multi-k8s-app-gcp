@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      volumes: # To tell which specific volume we want to use
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim  # Refer to the PVC
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          volumeMounts: # Tell to the container which "Volume" to use
+            - name: postgres-storage # The name of the specific Volume
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres # Specific config for PostgreSQL. More info "Video 242"
+          env:
+            # kubectl create secret generic pgpassword --from-literal=PGPASSWORD=postgres
+            - name: POSTGRES_PASSWORD # From the prostgreSQL image doc
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword # refer to the "NAME" pgpassword
+                  key: PGPASSWORD # refer to "KEY" PGPASSWORD
