@@ -13,7 +13,7 @@ before_install:
   - curl https://sdk.cloud.google.com | bash > /dev/null;
   - source $HOME/google-cloud-sdk/path.bash.inc
   # Install kubectl
-  - gcloud components update kubetcl
+  - gcloud components update kubectl
   # Add permission
   # "Activate Service Account" is equivalent to IAM on AWS
   - gcloud auth activate-service-account --key-file service-account.json
