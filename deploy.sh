@@ -15,6 +15,6 @@ docker push themindset/multi-server:$SHA
 docker push themindset/multi-worker:$SHA
 
 kubectl apply -f k8s
-kubectl set image deployments/server-deployment server=themindset/multi-server:$SHA
-kubectl set image deployments/client-deployment client=themindset/multi-client:$SHA
-kubectl set image deployments/worker-deployment worker=themindset/multi-worker:$SHA
+kubectl set image deployments/server-deployment server=stephengrider/multi-server:$SHA
+kubectl set image deployments/client-deployment client=stephengrider/multi-client:$SHA
+kubectl set image deployments/worker-deployment worker=stephengrider/multi-worker:$SHA
