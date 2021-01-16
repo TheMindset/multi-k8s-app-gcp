@@ -1,0 +1,17 @@
+# The purpose of this file is to describe to our Cert manager 
+# exactly where it should go in attempt to get a certificate
+
+apiVersion: cert-manager.k8s.io/v1alpha2
+kind: ClusterIssuer
+metadata: 
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: 'gmulezi@outlook.fr'
+    privateKeySecretRef:
+      name: letsencrypt-prod
+    solvers:
+      - http01: 
+          ingress:
+            class: nginx
