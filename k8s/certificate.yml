@@ -1,6 +1,6 @@
 # Describe some details around the certifiacate that we are trying to obtain
 
-apiVersion: cert-manager.k8s.io/v1alpha2
+apiVersion: certmanager.k8s.io/v1alpha1
 kind: Certificate
 metadata:
   name: gui-hands-on-com-tls
