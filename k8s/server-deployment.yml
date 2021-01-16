@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: stephengrider/multi-server
+          image: themindset/multi-server
           ports:
             - containerPort: 5000
           env:
@@ -30,9 +30,9 @@ spec:
               value: '5432' # must be setting as a string
             - name: PGDATABASE
               value: postgres
-              # kubectl create secret generic pgpassword --from-literal=PGPASSWORD=postgres
-            - name: PGPASSWORD # From the prostgreSQL image doc
+            # kubectl create secret generic pgpassword --from-literal=POSTGRES_PASSWORD=postgres
+            - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
                   name: pgpassword # refer to the "NAME" pgpassword
-                  key: PGPASSWORD # refer to "KEY" PGPASSWORD
+                  key: POSTGRES_PASSWORD # refer to "KEY" POSTGRES_PASSWORD
