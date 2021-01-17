@@ -1,0 +1,38 @@
+# This file say to Skaffold how to handle our Kubernetes pods
+# The "deploy" properties says which Kubernetes YAML files to manage
+# The "build" properties says which images, Dockerfile, specific files and context to watch and update.
+apiVersion: skaffold/v1beta2
+kind: Config
+build:
+  local:
+    push: false
+  artifacts:
+    - image: themindset/multi-client
+      context: client # which directory
+      docker: # which dockerfile to use.
+        dockerfile: Dockerfile.dev
+      sync: # We use Skaffold mode 2, which means to update files that changed 
+        '**/*.js': . # Which types of files we want to automatically update.
+        '**/*.css': .
+        '**/*.html': .
+    - image: themindset/multi-server
+      context: server
+      docker: 
+        dockerfile: Dockerfile.dev
+      sync: 
+        '**/*.js': .
+    - image: themindset/multi-worker
+        context: worker
+        docker:
+          dockerfile: Dockerfile.dev
+        sync: 
+          '**/*.js': .
+deploy:
+  kubectl:
+    manifests: # Tells to Skaffold which Kubernetes yaml files 
+               # it have to manage for us
+      - k8s/client-deployment.yml
+      - k8s/server-deployment.yml
+      - k8s/worker-deployment.yml
+      - k8s/client-cluster-ip-service.yml
+      - k8s/server-cluster-ip-service.yml
